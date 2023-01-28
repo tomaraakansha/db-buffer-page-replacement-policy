@@ -1,0 +1,196 @@
+javac  -d ./bin -cp ./bin  ./src/tests/BHRTest.java
+java -classpath ./bin tests.BHRTest
+
+Running Tests for BHR and reference count...
+Creating database...
+Replacer: Clock
+
+  Starting Test MRU (nested loop join) 
+ with 1 buf for outer relation and rest for inner relation
+# bufferes for inner relation is than inner relation pages
+
+ This should do better for MRU than LRU and others 
+numBufPages: buf and disk: 32  and 160
+  - Allocate all pages
+
+numPages: buf and disk: 32  and 160
+  - starting nested loop join with bufPages: 32  Outer pages: 16 inner pages: 144
++----------------------------------------+
+This is Random Policy 
++----------------------------------------+
+Aggregate Page Hits: 0
++----------------------------------------+
+Aggregate Page Loads: 2321
++----------------------------------------+
+BHR (for the whole buffer):    0.00000
++----------------------------------------+
+The top 20 referenced pages are: 
++----------------------------------------+
+Array index Page No.	 No. of Loads 	 No. of Page HIts 
+9	2 	 0
+10	1 	 0
+11	1 	 0
+12	1 	 0
+13	1 	 0
+14	1 	 0
+15	1 	 0
+16	1 	 0
+17	1 	 0
+18	1 	 0
+19	1 	 0
+20	1 	 0
+21	1 	 0
+22	1 	 0
+23	1 	 0
+24	1 	 0
+25	16 	 0
+26	16 	 0
+27	16 	 0
+28	16 	 0
++----------------------------------------+
+total hitcount of array is: 0
+total new loadcount of array is: 2321
+++++++++++++++++++++++++++==============
+  Test 1 completed successfully.
+
+  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Creating database...
+Replacer: Clock
+
+  Starting Test RR (a) and (b) using Round robin way of pinning and unpinning pages
+
+
+ This should do differently for different replacement policies 
+numBufPages: buf and disk: 32  and 160
+  - Allocate all pages
+
+First page id allocated: 9
+numBufPages: buf and disk: 32  and 160
+entering round robin stage ...
+
+  Test RR (a): Round Robin after 3 iterations
++----------------------------------------+
+This is Random Policy 
++----------------------------------------+
+Aggregate Page Hits: 1293
++----------------------------------------+
+Aggregate Page Loads: 481
++----------------------------------------+
+BHR (for the whole buffer):    2.68815
++----------------------------------------+
+The top 20 referenced pages are: 
++----------------------------------------+
+Array index Page No.	 No. of Loads 	 No. of Page HIts 
+143	3 	 19
+37	3 	 16
+38	3 	 15
+95	3 	 14
+124	3 	 14
+21	3 	 13
+30	3 	 13
+83	3 	 13
+115	3 	 13
+146	3 	 13
+154	3 	 13
+164	3 	 13
+12	3 	 12
+23	3 	 12
+44	3 	 12
+100	3 	 12
+156	3 	 12
+160	3 	 12
+15	3 	 11
+26	3 	 11
++----------------------------------------+
+total hitcount of array is: 1293
+total new loadcount of array is: 481
+
+++++++++++++++++++++++++++==============
+  Test RR (b) after 3 Iterations
++----------------------------------------+
+This is Random Policy 
++----------------------------------------+
+Aggregate Page Hits: 1423
++----------------------------------------+
+Aggregate Page Loads: 530
++----------------------------------------+
+BHR (for the whole buffer):    2.68491
++----------------------------------------+
+The top 20 referenced pages are: 
++----------------------------------------+
+Array index Page No.	 No. of Loads 	 No. of Page HIts 
+143	3 	 19
+37	3 	 16
+38	3 	 15
+124	3 	 14
+95	3 	 14
+164	3 	 13
+154	3 	 13
+146	3 	 13
+115	3 	 13
+83	3 	 13
+30	3 	 13
+21	3 	 13
+160	3 	 12
+156	3 	 12
+100	3 	 12
+44	3 	 12
+23	3 	 12
+12	3 	 12
+163	3 	 11
+114	3 	 11
++----------------------------------------+
+total hitcount of array is: 1423
+total new loadcount of array is: 530
+++++++++++++++++++++++++++==============
+  Test RR completed successfully.
+++++++++++++++++++++++++++==============
+ compare page faults for each policy
+++++++++++++++++++++++++++==============Creating database...
+Replacer: Clock
+
+  started Test Random ...numBufPages: buf and disk: 32  --- 160
+  - Allocate a bunch of new pages
+
+  Random pinning and unpinning of pages   - Write something on each one
++----------------------------------------+
+This is Random Policy 
++----------------------------------------+
+Aggregate Page Hits: 307
++----------------------------------------+
+Aggregate Page Loads: 18
++----------------------------------------+
+BHR (for the whole buffer):   17.05556
++----------------------------------------+
+The top 20 referenced pages are: 
++----------------------------------------+
+Array index Page No.	 No. of Loads 	 No. of Page HIts 
+21	1 	 24
+32	1 	 22
+14	1 	 21
+28	1 	 21
+9	2 	 20
+23	1 	 19
+31	1 	 19
+13	1 	 18
+16	1 	 18
+17	1 	 18
+25	1 	 18
+24	1 	 17
+18	1 	 16
+22	1 	 16
+20	1 	 15
+10	1 	 13
+27	1 	 12
+11	0 	 0
+12	0 	 0
+15	0 	 0
++----------------------------------------+
+total hitcount of array is: 307
+total new loadcount of array is: 18
+++++++++++++++++++++++++++==============
+  Test RANDOM completed successfully.
+
+++++++++++++++++++++++++++==============
+
+All Tests for BHR and reference count completed successfully!
